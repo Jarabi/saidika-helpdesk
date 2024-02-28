@@ -1,0 +1,90 @@
+{
+  "tickets": [
+    {
+      "id": "1",
+      "title": "Ticket 1",
+      "description": "This is the first ticket",
+      "status": "Assigned",
+      "priority": "High",
+      "userId": 2,
+      "dateCreated": "2020-01-01",
+      "assignedTo": 1,
+      "dateAssigned": "2020-01-02",
+      "dateClosed": ""
+    },
+    {
+      "id": "2",
+      "title": "Ticket 2",
+      "description": "This is the second ticket",
+      "status": "Closed",
+      "priority": "Medium",
+      "userId": 4,
+      "dateCreated": "2020-01-01",
+      "assignedTo": 1,
+      "dateAssigned": "2020-01-02",
+      "dateClosed": "2020-01-03"
+    },
+    {
+      "id": "3",
+      "title": "Ticket 3",
+      "description": "This is the third ticket",
+      "status": "Open",
+      "priority": "Low",
+      "userId": 3,
+      "dateCreated": "2020-01-01",
+      "assignedTo": "",
+      "dateAssigned": "",
+      "dateClosed": ""
+    },
+    {
+      "id": "4",
+      "title": "Ticket 4",
+      "description": "This is the fourth ticket",
+      "status": "Open",
+      "priority": "High",
+      "userId": 2,
+      "dateCreated": "2021-01-01",
+      "assignedTo": 1,
+      "dateAssigned": "",
+      "dateClosed": ""
+    },
+    {
+      "id": "82d0",
+      "title": "Ticket 5",
+      "description": "This is the fifth ticket",
+      "status": "Open",
+      "priority": "Low",
+      "userId": 3,
+      "dateCreated": "2024-02-28",
+      "assignedTo": 1,
+      "dateAssigned": "",
+      "dateClosed": ""
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "fibbs0@feedburner.com",
+      "role": "Admin"
+    },
+    {
+      "id": "2",
+      "username": "dgradley2",
+      "email": "bspollen1@whitehouse.gov",
+      "role": "User"
+    },
+    {
+      "id": "3",
+      "username": "ascriver0",
+      "email": "nroffey0@princeton.edu",
+      "role": "User"
+    },
+    {
+      "id": "4",
+      "username": "fcromly4",
+      "email": "dowttrim4@ftc.gov",
+      "role": "User"
+    }
+  ]
+}

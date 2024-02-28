@@ -1,0 +1,5 @@
+{
+    "/api/vi/*": "/$1",
+    "/tickets/:status": "/tickets?status=:status",
+    "/tickets/:prority": "/tickets?prority=:prority"
+}

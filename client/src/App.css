@@ -1,0 +1,234 @@
+/* Import all of Bootstrap's CSS */
+/* @import "bootstrap/scss/bootstrap"; */
+
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: var(--dark);
+  background-color: var(--light-grey);
+}
+
+:root {
+  --dark: #303841;
+  --orange: #ff5722;
+  --light-orange: #ff7e55;
+  --gray: #d4d4d4;
+  --light-grey: #eeeeee;
+  --white: #fff;
+  --green: #36e961;
+  --light-green: #64ee85;
+  --faded-green: #92f3a9;
+  --blue: #3066be;
+  --twitter-blue: #50b7f5;
+  --black: #000;
+  --red: #ff0000;
+
+  --header-height: 60px;
+  --footer-height: 60px;
+}
+
+/* Utility classes */
+
+.info {
+  background-color: var(--blue);
+}
+
+.success {
+  color: var(--green);
+}
+
+.warning {
+  color: var(--orange);
+}
+
+.danger {
+  color: var(--red);
+}
+
+input.form-control:focus,
+select.form-select:focus {
+  box-shadow: none;
+}
+
+header {
+  background-color: var(--gray);
+  min-height: --var(--header-height);
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--dark);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+}
+
+header .header-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 10px;
+  background-color: var(--orange);
+  color: var(--white);
+  border-radius: 5px;
+  width: 40px;
+  text-align: center;
+  text-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Page View */
+
+.pageView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  height: 3em;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--light-orange);
+  background-color: var(--dark);
+  border-bottom: 1px solid var(--light-orange);
+  margin-top: 10px;
+}
+
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.cards {
+  width: 100%;
+}
+
+.userActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-group {
+  max-width: 25%;
+}
+
+/* Table */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  font-size: 14px;
+}
+
+td.view-ticket a {
+  text-decoration: none;
+}
+
+/* Footer section */
+
+footer {
+  background-color: var(--gray);
+  min-height: var(--footer-height);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: var(--dark);
+  padding: 0 20px;
+}
