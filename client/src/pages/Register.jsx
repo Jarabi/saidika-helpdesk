@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from '../api/client';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -7,19 +7,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [roles, setRoles] = useState([]);
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
     email: '',
-    role: 'Select Role',
+    role: '',
     password: '',
     confirmpassword: '',
   });
 
   const [formErrors, setFormErrors] = useState({});
-  const [success, setSuccess] = useState(false);
 
   // Fetch roles from the server and populate the dropdown
   const fetchRoles = async () => {
@@ -47,49 +46,38 @@ const Register = () => {
     e.preventDefault();
 
     let validationErrors = {};
-    let isvalid = true;
 
     if (formData.firstname === '' || formData.firstname === null) {
-      isvalid = false;
       validationErrors.firstname = 'First name is required';
     }
 
     if (formData.lastname === '' || formData.lastname === null) {
-      isvalid = false;
       validationErrors.lastname = 'Last name is required';
     }
 
     if (formData.email === '' || formData.email === null) {
-      isvalid = false;
       validationErrors.email = 'Email is required';
     } else if (!formData.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-      isvalid = false;
       validationErrors.email = 'Invalid email address';
     }
 
     if (formData.role === 'Select Role') {
-      isvalid = false;
       validationErrors.role = 'Select a role';
     }
 
     if (formData.password === '' || formData.password === null) {
-      isvalid = false;
       validationErrors.password = 'Please enter password';
     } else if (formData.password.length < 6) {
-      isvalid = false;
       validationErrors.password = 'Password must be at least 6 characters';
     }
 
     if (formData.confirmpassword === '' || formData.confirmpassword === null) {
-      isvalid = false;
       validationErrors.confirmpassword = 'Please confirm password';
     } else if (formData.confirmpassword !== formData.password) {
-      isvalid = false;
       validationErrors.confirmpassword = 'Passwords do not match';
     }
 
     setFormErrors(validationErrors);
-    setSuccess(isvalid);
 
     if (Object.keys(validationErrors).length === 0) {
       let newUser = (({ confirmpassword, ...object }) => object)(formData);
@@ -106,7 +94,7 @@ const Register = () => {
         });
 
         toast.success('User registered successfully');
-        navigate('/login');
+        // navigate('/login');
       } catch (error) {
         console.error('Error registering user:', error);
         toast.error('Error registering user');
@@ -202,11 +190,12 @@ const Register = () => {
                     <select
                       name='role'
                       className='form-select'
+                      value={formData.role}
                       onChange={(e) =>
                         setFormData({ ...formData, role: e.target.value })
                       }
                     >
-                      <option value='Select Role'>Select Role</option>
+                      <option>Select Role</option>
                       {roles.map((role) => (
                         <option key={role.id} value={role.id}>
                           {role.name}
