@@ -2,6 +2,7 @@
   "tickets": [
     {
       "id": "1",
+      "ticketNumber": "R-101",
       "title": "Ticket 1",
       "description": "This is the first ticket",
       "status": "Assigned",
@@ -14,6 +15,7 @@
     },
     {
       "id": "2",
+      "ticketNumber": "R-102",
       "title": "Ticket 2",
       "description": "This is the second ticket",
       "status": "Closed",
@@ -26,6 +28,7 @@
     },
     {
       "id": "3",
+      "ticketNumber": "R-103",
       "title": "Ticket 3",
       "description": "This is the third ticket",
       "status": "Open",
@@ -38,25 +41,27 @@
     },
     {
       "id": "4",
+      "ticketNumber": "R-104",
       "title": "Ticket 4",
       "description": "This is the fourth ticket",
       "status": "Open",
       "priority": "High",
       "userId": 2,
       "dateCreated": "2021-01-01",
-      "assignedTo": 1,
+      "assignedTo": "",
       "dateAssigned": "",
       "dateClosed": ""
     },
     {
       "id": "82d0",
+      "ticketNumber": "R-105",
       "title": "Ticket 5",
       "description": "This is the fifth ticket",
       "status": "Open",
       "priority": "Low",
       "userId": 3,
       "dateCreated": "2024-02-28",
-      "assignedTo": 1,
+      "assignedTo": "",
       "dateAssigned": "",
       "dateClosed": ""
     }
@@ -64,27 +69,111 @@
   "users": [
     {
       "id": "1",
-      "username": "admin",
-      "email": "fibbs0@feedburner.com",
-      "role": "Admin"
+      "username": "clinton.bond",
+      "firstname": "Clinton",
+      "lastname": "Bond",
+      "email": "clintonbond@hotmail.co.uk",
+      "role": "200"
     },
     {
       "id": "2",
-      "username": "dgradley2",
-      "email": "bspollen1@whitehouse.gov",
-      "role": "User"
+      "username": "david.townsend",
+      "firstname": "David",
+      "lastname": "Townsend",
+      "email": "davidtownsend@outlook.com",
+      "role": "100"
     },
     {
       "id": "3",
-      "username": "ascriver0",
-      "email": "nroffey0@princeton.edu",
-      "role": "User"
+      "username": "colton.sargent",
+      "firstname": "Colton",
+      "lastname": "Sargent",
+      "email": "coltonsargent@aol.com",
+      "role": "100"
     },
     {
       "id": "4",
-      "username": "fcromly4",
-      "email": "dowttrim4@ftc.gov",
-      "role": "User"
+      "username": "noah.rivers",
+      "firstname": "Noah",
+      "lastname": "Rivers",
+      "email": "noahrivers@hotmail.net",
+      "role": "100"
+    },
+    {
+      "id": "b755",
+      "firstname": "Micheal",
+      "lastname": "Oneal",
+      "email": "moneal@email.com",
+      "role": "100",
+      "password": "password"
+    },
+    {
+      "id": "fbcd",
+      "firstname": "Susan",
+      "lastname": "Munyoki",
+      "email": "smunyoki@email.com",
+      "role": "200",
+      "password": "KwetuNyumbani"
+    },
+    {
+      "id": "e2f1",
+      "firstname": "Lucas",
+      "lastname": "Oyier",
+      "email": "loyier@email.com",
+      "role": "100",
+      "password": "Jikakamue"
+    },
+    {
+      "id": "a793",
+      "firstname": "Alex",
+      "lastname": "Jarabi",
+      "email": "jalex@email.com",
+      "role": "200",
+      "password": "Blessings"
+    },
+    {
+      "id": "1b44",
+      "firstname": "Cynthia",
+      "lastname": "Mumbua",
+      "email": "cmumbua@email.com",
+      "role": "100",
+      "password": "password"
+    },
+    {
+      "id": "42a3",
+      "firstname": "Allan",
+      "lastname": "Wamae",
+      "email": "awamae@email.com",
+      "role": "100",
+      "password": "password"
+    }
+  ],
+  "roles": [
+    {
+      "id": 100,
+      "name": "User"
+    },
+    {
+      "id": 200,
+      "name": "Admin"
+    }
+  ],
+  "login": [
+    {
+      "email": "clintonbond@hotmail.co.uk",
+      "password": "cbond1234"
+    },
+    {
+      "email": "davidtownsend@outlook.com",
+      "password": "dtownsend1234"
+    },
+    {
+      "email": "coltonsargent@aol.com",
+      "password": "csargent1234"
+    },
+    {
+      "email": "noahrivers@hotmail.net",
+      "password": "nrivers1234"
     }
   ]
 }

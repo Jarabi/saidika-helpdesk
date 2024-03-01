@@ -4,18 +4,12 @@
 import { Routes, Route } from 'react-router-dom';
 
 /**
- * Authentication
- */
-import { AUTH_TOKEN } from './api/constants';
-import ProtectedRoute from './provider/ProtectedRoute';
-
-
-/**
  * Pages
  */
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Register from './pages/Register';
 
 /**
  * Styles and assets
@@ -27,12 +21,9 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route
-          path='/login'
-          element={<Login />}
-        />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/dashboard' element={<Dashboard />} />
-
       </Routes>
     </>
   );

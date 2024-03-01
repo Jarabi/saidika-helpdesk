@@ -4,6 +4,7 @@ import api from '../api/client';
 
 const UserView = () => {
   const [tickets, setTickets] = useState([]);
+  const [users, setUsers] = useState([]);
 
   // Retrieve tickets from the API
   const fetchTickets = async () => {
@@ -15,16 +16,32 @@ const UserView = () => {
     }
   };
 
+  // Retrieve users from the API
+  const fetchUsers = async () => {
+    try {
+      const response = await api.get('/users');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching users', error);
+    }
+  };
+
   useEffect(() => {
     const getTickets = async () => {
       const allTickets = await fetchTickets();
       if (allTickets) setTickets(allTickets);
     };
+
+    const getUsers = async () => {
+      const allUsers = await fetchUsers();
+      if (allUsers) setUsers(allUsers);
+    };
     getTickets();
+    getUsers();
   }, []);
 
   return (
-    <div className='pageView'>
+    <div className='container-fluid pageView'>
       {/* <div className='pageHeader fs-4'>Dashboard</div> */}
       <div className='pageContent'>
         <div className='row cards'>
@@ -79,12 +96,12 @@ const UserView = () => {
           <div className='input-group'>
             <input
               type='text'
-              className='form-control'
+              className='form-control form-control-sm'
               placeholder='Search'
               aria-describedby='search-button'
             />
             <button
-              className='btn btn-outline-secondary'
+              className='btn btn-outline-secondary btn-sm'
               type='button'
               id='search-button'
             >
@@ -94,25 +111,25 @@ const UserView = () => {
 
           {/* Filter */}
           <div className='input-group'>
-            <select className='form-select'>
+            <select className='form-select form-select-sm'>
               <option selected>Filter by priority...</option>
               <option value='High'>High</option>
               <option value='Low'>Low</option>
               <option value='Medium'>Medium</option>
             </select>
-            <button className='btn btn-outline-secondary' type='button'>
+            <button className='btn btn-outline-secondary  btn-sm' type='button'>
               Filter
             </button>
           </div>
 
           <div className='input-group'>
-            <select className='form-select'>
+            <select className='form-select form-select'>
               <option selected>Filter by status...</option>
               <option value='Assigned'>Assigned</option>
               <option value='Closed'>Closed</option>
               <option value='Open'>Open</option>
             </select>
-            <button className='btn btn-outline-secondary' type='button'>
+            <button className='btn btn-outline-secondary btn-sm' type='button'>
               Filter
             </button>
           </div>
@@ -126,29 +143,29 @@ const UserView = () => {
           <table className='table table-striped table-hover table-sm'>
             <thead>
               <tr>
-                {/* <th scope="col">ID</th> */}
+                <th scope='col'>Ticket #</th>
                 <th scope='col'>Title</th>
+                <th scope='col'>Description</th>
                 <th scope='col'>Priority</th>
                 <th scope='col'>Status</th>
                 <th scope='col'>Assigned To</th>
                 <th scope='col'>Created On</th>
-                <th scope='col'>Action</th>
+                <th scope='col'>VIEW</th>
               </tr>
             </thead>
             <tbody>
               {tickets.map((ticket) => (
                 <tr key={ticket.id}>
-                  {/* <td>{ticket.id}</td> */}
-                  <td className='view-ticket'>
-                    <a href='#'>{ticket.title}</a>
-                  </td>
+                  <td>{ticket.ticketNumber}</td>
+                  <td>{ticket.title}</td>
+                  <td className='truncate'>{ticket.description}</td>
                   <td
                     className={`text-uppercase text-${
                       ticket.priority === 'High'
                         ? 'danger'
                         : ticket.priority === 'Medium'
-                        ? 'success'
-                        : 'info'
+                        ? 'warning'
+                        : 'success'
                     }`}
                   >
                     {ticket.priority}
@@ -166,16 +183,27 @@ const UserView = () => {
                       {ticket.status}
                     </span>
                   </td>
-                  <td>{ticket.assignedTo}</td>
-                  <td>{ticket.createdAt}</td>
                   <td>
-                    {/* <button type="button" className="btn btn-primary btn-sm">Edit</button> */}
+                    {ticket.assignedTo
+                      ? users.find((user) => +user.id === +ticket.assignedTo) &&
+                        users.find((user) => +user.id === +ticket.assignedTo)
+                          .username
+                      : 'UNASSIGNED'}
+                  </td>
+                  <td>{ticket.dateCreated}</td>
+                  <td className='text-center'>
                     <button
+                      type='button'
+                      className='btn btn-outline-secondary btn-sm'
+                    >
+                      ...
+                    </button>
+                    {/* <button
                       type='button'
                       className='btn btn-outline-danger btn-sm'
                     >
                       Delete
-                    </button>
+                    </button> */}
                   </td>
                 </tr>
               ))}

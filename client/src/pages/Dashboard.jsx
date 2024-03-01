@@ -7,12 +7,12 @@ import UserView from '../views/UserView';
 
 const Dashboard = () => {
   return (
-    <div className="container-fluid dashboard">
+    <div className='dashboard'>
       <Header />
       <UserView />
       <Footer />
     </div>
-  )
+  );
 }
 
 export default Dashboard

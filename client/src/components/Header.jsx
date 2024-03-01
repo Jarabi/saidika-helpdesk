@@ -1,5 +1,11 @@
+import Navbar from './Navbar';
+
 const Header = () => {
-  return <header><span className="header-logo">S</span>Saidika Helpdesk</header>;
+  return (
+    <header>
+      <Navbar />
+    </header>
+  );
 };
 
 export default Header;
