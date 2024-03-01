@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import axios from '../api/client';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -81,6 +82,7 @@ const Register = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       let newUser = (({ confirmpassword, ...object }) => object)(formData);
+      newUser.id = uuidv4();
       try {
         const response = await axios.post('/users', newUser);
         console.log(response.data);
