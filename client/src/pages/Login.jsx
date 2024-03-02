@@ -1,118 +1,183 @@
-import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from '../context/AuthProvider';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from '../api/client';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
-  const emailRef = useRef();
-  const errRef = useRef();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const navigate = useNavigate();
 
-  // Set focus on email field automatically
   useEffect(() => {
-    emailRef.current.focus();
+    document.title = 'Login | Saidika Helpdesk';
   }, []);
-
-  // Clear fields once email or password changes
-  useEffect(() => {
-    setErrMsg('');
-  }, [email, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ email, password }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
+    let validationErrors = {};
+    let isValid = true;
+
+    if (email === '' || email === null) {
+      isValid = false;
+      validationErrors.email = 'Email is required';
+    } else if (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      isValid = false;
+      validationErrors.email = 'Invalid email address';
+    }
+
+    if (password === '' || password === null) {
+      isValid = false;
+      validationErrors.password = 'Password is required';
+    }
+    setFormErrors(validationErrors);
+
+    if (isValid) {
+      try {
+        const response = await axios.get('/users');
+        const foundUser = response.data.find((user) => user.email === email);
+
+        if (foundUser) {
+          if (foundUser.password === password) {
+            const token = {
+              id: foundUser.id,
+              email: foundUser.email,
+              role: foundUser.role,
+            };
+            // Check if user is already logged in
+            const authenticatedUsers = await axios.get('/auth');
+            const loggedInUser = authenticatedUsers.data.find(
+              (user) => user.id === foundUser.id
+            );
+
+            if (foundUser.id !== loggedInUser?.id) {
+              await axios.post('/auth', token);
+            }
+            toast.success('Login successful', {
+              autoClose: 500,
+              onClose: () => navigate('/dashboard'),
+            });
+          } else {
+            validationErrors.password = 'Incorrect password';
+            console.log('Password:', validationErrors.password);
+            setFormErrors(validationErrors);
+          }
+        } else {
+          validationErrors.email = 'Email not found';
+          console.log('Email:', validationErrors.email);
+          setFormErrors(validationErrors);
         }
-      );
-      console.log(JSON.stringify(response?.data));
-      setEmail('');
-      setPassword('');
-      setSuccess(true);
-    } catch (error) {
-      setErrMsg('Invalid email or password');
-      errRef.current.focus();
+      } catch (error) {
+        console.log('Login error:', error);
+        toast.error('Login failed');
+      }
     }
   };
   return (
     <>
-      <Header />
-      <section className='login'>
-        <div className='login-form'>
-          {success ? (
-            <>
-              <p className='alert alert-success'>
-                You have successfully logged in
-              </p>
-              <br />
-              <p>
-                <a href='#'>Go to Dashboard</a>
-              </p>
-            </>
-          ) : (
-            <>
-              {/* Display error message at the top of the section */}
-              <p
-                ref={errRef}
-                className={errMsg ? 'showErrMsg' : 'hideErrMsg'}
-                aria-live='assertive'
-              >
-                {errMsg}
-                Error
-              </p>
-              <h2>Sign In</h2>
-              <form onSubmit={handleSubmit}>
-                <div className='mb-3'>
-                  <label htmlFor='email' className='form-label'>
-                    Email
-                  </label>
-                  <input
-                    type='email'
-                    className='form-control'
-                    id='email'
-                    ref={emailRef}
-                    autoComplete='off'
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    required
-                  />
+      <ToastContainer />
+      <section className='login bg-light'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-lg-10 offset-lg-1'>
+              <div className='bg-white shadow rounded'>
+                <div className='row'>
+                  <div className='col-md-7 pe-0'>
+                    <div className='form-left h-100 py-5 px-5'>
+                      <form onSubmit={handleSubmit} className='row g-4'>
+                        <h3>Login</h3>
+                        <hr />
+                        <div
+                          className={`col-md-12 ${
+                            formErrors.email && 'text-danger'
+                          }`}
+                        >
+                          <label>Email Address</label>
+                          <div className='input-group mb-3'>
+                            <span className='input-group-text'>@</span>
+                            <input
+                              type='text'
+                              name='email'
+                              className='form-control'
+                              onChange={(e) => setEmail(e.target.value)}
+                              value={email}
+                            />
+                          </div>
+                          {formErrors.email && (
+                            <span className='invalidMessage'>
+                              {formErrors.email}
+                            </span>
+                          )}
+                        </div>
+
+                        <div
+                          className={`col-md-12 ${
+                            formErrors.password && 'text-danger'
+                          }`}
+                        >
+                          <label>Password</label>
+                          <div className='input-group mb-3'>
+                            <span className='input-group-text'>...</span>
+                            <input
+                              type='password'
+                              name='password'
+                              className='form-control'
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                            />
+                          </div>
+                          {formErrors.password && (
+                            <span className='invalidMessage'>
+                              {formErrors.password}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* <div className='col-sm-6'>
+                          <div className='form-check'>
+                            <input
+                              className='form-check-input'
+                              type='checkbox'
+                              id='inlineFormCheck'
+                            />
+                            <label
+                              className='form-check-label'
+                              htmlFor='inlineFormCheck'
+                            >
+                              Remember me
+                            </label>
+                          </div>
+                        </div> */}
+
+                        {/* <div className='col-sm-6'>
+                          <a href='#' className='float-end text-primary'>
+                            Forgot Password?
+                          </a>
+                        </div> */}
+
+                        <div className='col-12'>
+                          <button className='btn btn-primary px-4'>
+                            Login
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className='col-md-5 ps-0 d-none d-md-block'>
+                    <div className='form-right h-100'>
+                      <h5>Welcome Back</h5>
+                      <span className='login-logo'>S</span>
+                      <h2>Saidika Helpdesk</h2>
+                    </div>
+                  </div>
                 </div>
-                <div className='mb-3'>
-                  <label htmlFor='password' className='form-label'>
-                    Password
-                  </label>
-                  <input
-                    type='password'
-                    className='form-control'
-                    id='password'
-                    autoComplete='off'
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    required
-                  />
-                </div>
-                <button type='submit' className='btn btn-primary'>
-                  Sign In
-                </button>
-              </form>
-            </>
-          )}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };
