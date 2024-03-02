@@ -1,11 +1,24 @@
-import { AUTH_TOKEN } from "../api/constants";
+import { useContext } from 'react';
+import axios from '../api/client';
+import AuthContext from '../context/AuthProvider';
 
 export const useAuth = () => {
-    const isLoggedIn = () => {
-        const token = localStorage.getItem(AUTH_TOKEN);
-        
-        return token !== null;
-    };
+  const { auth } = useContext(AuthContext);
 
-    return {isLoggedIn};
-}   
+  const checkAuthenticated = async () => {
+    // console.log('Checking authentication...', auth.id);
+    if (auth?.id) {
+      const response = await axios.get('/auth');
+      const authenticatedUser = response?.data?.find(
+        (user) => user.id === auth.id
+      );
+      if (!authenticatedUser) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
+
+  return { isAuthenticated: checkAuthenticated };
+};

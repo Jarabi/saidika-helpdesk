@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthContext from '../context/AuthProvider';
 import axios from '../api/client';
 
 const Login = () => {
+  const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [formErrors, setFormErrors] = useState({});
@@ -55,6 +57,7 @@ const Login = () => {
             if (foundUser.id !== loggedInUser?.id) {
               await axios.post('/auth', token);
             }
+            setAuth(token);
             toast.success('Login successful', {
               autoClose: 500,
               onClose: () => navigate('/dashboard'),
@@ -70,8 +73,22 @@ const Login = () => {
           setFormErrors(validationErrors);
         }
       } catch (error) {
-        console.log('Login error:', error);
-        toast.error('Login failed');
+        if (!error.response) {
+          console.log('Network error:', error);
+          toast.error('No server response');
+        } else if (error.response?.status === 404) {
+          console.log('Resource not found:', error);
+          toast.error('Resource not found');
+        } else if (error.response?.status === 500) {
+          console.log('Server error:', error);
+          toast.error('Server error');
+        } else if (error.response?.status === 401) {
+          console.log('Unauthorized:', error);
+          toast.error('Unauthorized');
+        } else {
+          console.log('Login failed:', error);
+          toast.error('Login failed');
+        }
       }
     }
   };
@@ -103,6 +120,7 @@ const Login = () => {
                               className='form-control'
                               onChange={(e) => setEmail(e.target.value)}
                               value={email}
+                              autoFocus
                             />
                           </div>
                           {formErrors.email && (
