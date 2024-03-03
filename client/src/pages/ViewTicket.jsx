@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 const ViewTicket = () => {
   let { state } = useLocation();
-  console.log(state);
   return (
     <section className='viewTicket'>
       <div className='container'>
