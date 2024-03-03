@@ -31,7 +31,6 @@ const Login = () => {
     }
 
     if (password === '' || password === null) {
-      isValid = false;
       validationErrors.password = 'Password is required';
     }
     setFormErrors(validationErrors);
@@ -54,10 +53,10 @@ const Login = () => {
               (user) => user.id === foundUser.id
             );
 
+            setAuth(token);
             if (foundUser.id !== loggedInUser?.id) {
               await axios.post('/auth', token);
             }
-            setAuth(token);
             toast.success('Login successful', {
               autoClose: 500,
               onClose: () => navigate('/dashboard'),

@@ -6,7 +6,6 @@ export const useAuth = () => {
   const { auth } = useContext(AuthContext);
 
   const checkAuthenticated = async () => {
-    // console.log('Checking authentication...', auth.id);
     if (auth?.id) {
       const response = await axios.get('/auth');
       const authenticatedUser = response?.data?.find(

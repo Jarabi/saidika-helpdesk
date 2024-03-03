@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import axios from '../api/client';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -81,11 +78,15 @@ const Register = () => {
     setFormErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      let newUser = (({ confirmpassword, ...object }) => object)(formData);
-      newUser.id = uuidv4();
       try {
-        const response = await axios.post('/users', newUser);
-        console.log(response.data);
+        /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "confirmpassword" }]*/
+        const { confirmpassword, ...user } = formData; // Remove 'confirmpassword' property from 'formData' object
+        user.id = uuidv4();
+
+        // Send user data to the server
+        await axios.post('/users', user);
+
+        // Clear form fields
         setFormData({
           firstname: '',
           lastname: '',
@@ -95,8 +96,8 @@ const Register = () => {
           confirmpassword: '',
         });
 
+        // Display success message
         toast.success('User registered successfully');
-        // navigate('/login');
       } catch (error) {
         console.error('Error registering user:', error);
         toast.error('Error registering user');
@@ -106,7 +107,6 @@ const Register = () => {
 
   return (
     <>
-      <Header />
       <ToastContainer />
       <section className='register'>
         <div className='row register-form'>
@@ -263,7 +263,6 @@ const Register = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

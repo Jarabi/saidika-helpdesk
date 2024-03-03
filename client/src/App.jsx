@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import ProtectedRoute from './provider/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
@@ -11,6 +11,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
+import ViewTicket from './pages/ViewTicket';
 
 import './App.css';
 
@@ -18,21 +19,19 @@ function App() {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    isAuthenticated();
+    isAuthenticated;
   }, [isAuthenticated]);
 
   return (
     <>
-      <Header isAuthenticated={isAuthenticated()} />
+      <Header />
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route
-          path='/login'
-          element={isAuthenticated() ? <Navigate to='/dashboard' /> : <Login />}
-        />
+        <Route path='/login' element={<Login />} />
         <Route element={<ProtectedRoute />}>
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/view-ticket/:id' element={<ViewTicket />} />
         </Route>
       </Routes>
       <Footer />
