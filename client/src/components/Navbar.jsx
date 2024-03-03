@@ -23,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg bg-body-secondary container-fluid'>
+    <nav className='navbar navbar-expand-lg container-fluid'>
       <div className='container-fluid d-flex justify-content-end'>
         <div className='nav-items'>
           <ul className='navbar-nav d-flex flex-row justify-content-end'>

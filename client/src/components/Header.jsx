@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 
 const Header = () => {
   return (
-    <header className='bg-body-secondary'>
+    <header>
       <Link className='navbar-brand' to='/'>
         <span className='header-logo'>S</span>
         <span className='header-text'>Saidika Helpdesk</span>

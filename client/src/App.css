@@ -155,17 +155,6 @@ select.form-select:focus {
   box-shadow: none;
 }
 
-/* Nav section */
-nav {
-  font-family: "Poppins", sans-serif;
-}
-
-.nav-items {
-  width: 250px;
-  font-weight: normal;
-  font-size: medium;
-}
-
 /* Login and register section */
 
 section.login,
@@ -213,21 +202,24 @@ section.register {
 
 }
 
-/* Header section */
+/**
+  * Header section
+  */
 
 header {
-  background-color: var(--gray);
-  min-height: --var(--header-height);
-  width: 100%;
-  font-size: 1.5rem;
-  font-weight: bold;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  color: var(--dark);
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 100%;
+  color: var(--white);
+  background-color: var(--dark);
+  min-height: --var(--header-height);
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
+
 header .header-logo,
 header .header-text {
   font-size: 1.5rem;
@@ -245,29 +237,31 @@ header .header-logo {
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
 
+/**
+  * Navigation section
+  */
+nav {
+  font-family: "Poppins", sans-serif;
+}
+
+.nav-item div,
+.nav-item .nav-link {
+  color: var(--white);
+}
+
+.nav-items {
+  width: 250px;
+  font-weight: normal;
+  font-size: medium;
+}
+
 .dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background-color: #f4f4f4;
-}
-
-/* Page View */
-
-.pageView {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-  width: 100%;
-  height: calc(100vh - var(--header-height) - var(--footer-height));
-}
-
-.userActions .input-group {
-  gap: 10px;
-  width: 25%;
 }
 
 /* viewTicket */
@@ -289,20 +283,18 @@ header .header-logo {
   background-color: var(--light-grey);
 }
 
-.pageHeader {
+/**
+  * Page view
+  */
+.pageView {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  justify-content: start;
+  font-family: "Poppins", sans-serif;
   width: 100%;
-  height: 3em;
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: var(--light-orange);
-  background-color: var(--dark);
-  border-bottom: 1px solid var(--light-orange);
-  margin-top: 10px;
+  height: calc(100vh - var(--header-height) - var(--footer-height) + 4px);
+  background-color: var(--light-grey);
 }
 
 .pageContent {
@@ -311,11 +303,89 @@ header .header-logo {
   align-items: center;
   justify-content: start;
   width: 100%;
+  max-height: 90%;
   margin-top: 10px;
+  padding: 10px;
+  background-color: var(--white);
 }
 
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray);
+  /* margin-top: 10px; */
+}
+
+.pageHeader .pageTitle {
+  font-size: 1.5rem;
+  font-weight: 100;
+  color: var(--orange);
+}
+
+.pageHeader .pageSalutation {
+  font-size: 0.85rem;
+  font-weight: 100;
+}
+
+/**
+  * Cards
+  */
 .cards {
   width: 100%;
+}
+
+.card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  width: 4.2em;
+  border-radius: 50%;
+}
+
+.card-icon.total {
+  background-color: rebeccapurple;
+}
+
+.card-icon.resolved {
+  background-color: var(--green);
+}
+
+.card-icon.in-progress {
+  background-color: var(--light-orange);
+}
+
+.card-icon.pending {
+  background-color: var(--red);
+}
+
+.card-ticket-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.card-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.5;
+  border-top: 1px solid var(--gray);
+  margin-top: 10px;
+  padding-top: 5px;
+}
+
+.userActions .input-group {
+  gap: 10px;
+  width: 25%;
 }
 
 .userActions {
@@ -330,22 +400,28 @@ header .header-logo {
 
 /* Table */
 .table-responsive {
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
   width: 100%;
-  overflow-x: auto;
-  font-size: 14px;
+  /* overflow-x: auto; */
+}
+
+table tr {
+  vertical-align: middle;
 }
 
 /* Footer section */
 
 footer {
   font-family: "Poppins", sans-serif;
-  background-color: var(--gray);
+  background-color: var(--dark);
   min-height: var(--footer-height);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
-  color: var(--dark);
+  color: var(--white);
   padding: 0 20px;
 }
