@@ -156,6 +156,9 @@ select.form-select:focus {
 }
 
 /* Nav section */
+nav {
+  font-family: "Poppins", sans-serif;
+}
 
 .nav-items {
   width: 250px;
@@ -163,7 +166,7 @@ select.form-select:focus {
   font-size: medium;
 }
 
-/* Login section */
+/* Login and register section */
 
 section.login,
 section.register {
@@ -175,20 +178,39 @@ section.register {
   height: calc(100vh - var(--header-height) - var(--footer-height) - 2px);
   /* background-color: var(--light-grey); */
 }
-
+.login hr,
 .signup-form hr {
   width: 100%;
   margin: 20px 0;
   color: var(--orange);
 }
 
-.login-form {
-  width: 100%;
-  max-width: 500px;
-  padding: 40px;
+.login .form-left {
+  font-family: "Poppins", sans-serif;
+  border: var(--orange) 1px solid;
+}
+
+.login .form-right {
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.form-right .login-logo {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 10px;
+  background-color: var(--white);
+  color: var(--orange);
   border-radius: 5px;
-  background-color: var(--light-grey);
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+  padding: 5px 15px;
+  text-align: center;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+
 }
 
 /* Header section */
@@ -243,6 +265,30 @@ header .header-logo {
   height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
+.userActions .input-group {
+  gap: 10px;
+  width: 25%;
+}
+
+/* viewTicket */
+.viewTicket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.viewTicket table {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--light-grey);
+}
+
 .pageHeader {
   display: flex;
   flex-direction: column;
@@ -282,10 +328,6 @@ header .header-logo {
   width: 100%;
 }
 
-.input-group {
-  max-width: 25%;
-}
-
 /* Table */
 .table-responsive {
   width: 100%;
@@ -296,6 +338,7 @@ header .header-logo {
 /* Footer section */
 
 footer {
+  font-family: "Poppins", sans-serif;
   background-color: var(--gray);
   min-height: var(--footer-height);
   display: flex;
