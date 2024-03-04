@@ -4,32 +4,44 @@ import { Link, useLocation } from 'react-router-dom';
 const ViewTicket = () => {
   let { state } = useLocation();
   return (
-    <section className='viewTicket'>
-      <div className='container'>
-        <div className='row'>
-          <table className='table table-striped table-hover table-sm'>
-            <thead>
-              <tr>
-                <th scope='col' colSpan={2} className='fs-4'>
-                  Ticket Details
-                </th>
-              </tr>
-            </thead>
+    <section className='container-fluid pageView'>
+      <div className='pageContent'>
+        <div className='viewTicket'>
+          <div className='pageHeader'>
+            <h5 className='pageTitle'>Ticket Details</h5>
+            <div className='close-page d-flex justify-content-end'>
+              <Link to='/dashboard'>
+                <i
+                  className='bi bi-x-circle'
+                  style={{ fontSize: '2.5rem', color: '#3f3f3f' }}
+                ></i>
+              </Link>
+            </div>
+          </div>
+          <div className='ticket-details w-100 mt-4'>
+            <p className='ms-2 fs-4'>
+              Ticket Number:&nbsp;&nbsp;
+              <span className='ticket-number fs-3'>
+                {state.ticket.ticketNumber}
+              </span>
+            </p>
+          </div>
+
+          <table className='table table-striped'>
             <tbody>
               <tr>
-                <th>Ticket #</th>
-                <td>{state.ticket.ticketNumber}</td>
+                <th>TITLE</th>
+                <th>DESCRIPTION</th>
               </tr>
               <tr>
-                <th>Title</th>
                 <td>{state.ticket.title}</td>
-              </tr>
-              <tr>
-                <th>Description</th>
                 <td>{state.ticket.description}</td>
               </tr>
               <tr>
-                <th>Priority</th>
+                <th>PRIORITY</th>
+                <th>STATUS</th>
+              </tr>
+              <tr>
                 <td
                   className={`text-uppercase text-${
                     state.ticket.priority === 'High'
@@ -41,42 +53,36 @@ const ViewTicket = () => {
                 >
                   {state.ticket.priority}
                 </td>
-              </tr>
-              <tr>
-                <th>Status</th>
-                <td>
-                  <span
-                    className={`badge rounded-pill text-bg-${
-                      state.ticket.status === 'Closed'
-                        ? 'success'
-                        : state.ticket.status === 'Assigned'
-                        ? 'warning'
-                        : 'danger'
-                    } text-uppercase`}
-                  >
-                    {state.ticket.status}
-                  </span>
+                <td
+                  className={`text-uppercase text-${
+                    state.ticket.status === 'Closed'
+                      ? 'success'
+                      : state.ticket.status === 'Assigned'
+                      ? 'warning'
+                      : 'danger'
+                  } text-uppercase`}
+                >
+                  {state.ticket.status}
                 </td>
               </tr>
               <tr>
-                <th>Assigned To</th>
+                <th>TECH ASSIGNED</th>
+                <th>DATE CREATED</th>
+              </tr>
+              <tr>
                 <td>
-                  {state.ticket.assignedTo}
+                  {state.ticket.assignedTo
+                    ? state.ticket.assignedTo
+                    : 'UNASSIGNED'}
                   {/* {state.ticket.assignedTo
                 ? users.find((user) => +user.id === +ticket.assignedTo) &&
                   users.find((user) => +user.id === +ticket.assignedTo).username
                 : 'UNASSIGNED'} */}
                 </td>
-              </tr>
-              <tr>
-                <th>Created On</th>
                 <td>{state.ticket.dateCreated}</td>
               </tr>
             </tbody>
           </table>
-          <Link className='btn btn-secondary' to='/dashboard'>
-            Back
-          </Link>
         </div>
       </div>
     </section>

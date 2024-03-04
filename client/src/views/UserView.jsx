@@ -54,52 +54,87 @@ const UserView = () => {
   }, []);
 
   return (
-    <div className='container-fluid pageView'>
-      {/* <div className='pageHeader fs-4'>Dashboard</div> */}
+    <section className='container-fluid pageView'>
       <div className='pageContent'>
+        <div className='pageHeader mb-3'>
+          <h5 className='pageTitle'>User Dashboard</h5>
+          <small className='pageSalutation'>
+            Welcome <strong>{auth.email}</strong>
+          </small>
+        </div>
         <div className='row cards'>
-          <div className='text-center mb-3 fs-4'>My Tickets</div>
-
           <div className='col-md-3 mb-3'>
-            <div className='card text-bg-info h-55'>
-              <div className='card-header fw-bold text-center'>
-                Total Tickets
-              </div>
-              <div className='card-body'>
-                <h5 className='card-title text-center'>{totalTockets}</h5>
+            <div className='card text-bg-light'>
+              <div className='card-body d-flex flex-column'>
+                <div className='card-ticket-data d-flex flex-row'>
+                  <div className='card-icon total'>
+                    <i
+                      className='bi bi-card-checklist'
+                      style={{ fontSize: '1.5rem', color: 'white' }}
+                    ></i>
+                  </div>
+                  <h5 className='card-ticket-count'>{totalTockets} Tickets</h5>
+                </div>
+                <div className='card-title text-center'>Total Tickets</div>
               </div>
             </div>
           </div>
 
           <div className='col-md-3 mb-3'>
-            <div className='card text-bg-success h-55'>
-              <div className='card-header fw-bold text-center'>
-                Tickets Resolved
-              </div>
-              <div className='card-body'>
-                <h5 className='card-title text-center'>{ticketsResolved}</h5>
-              </div>
-            </div>
-          </div>
-
-          <div className='col-md-3 mb-3'>
-            <div className='card text-bg-warning h-55'>
-              <div className='card-header fw-bold text-center'>
-                Tickets In Progress
-              </div>
-              <div className='card-body'>
-                <h5 className='card-title text-center'>{ticketsInProgress}</h5>
+            <div className='card text-bg-light'>
+              <div className='card-body d-flex flex-column'>
+                <div className='card-ticket-data d-flex flex-row'>
+                  <div className='card-icon resolved'>
+                    <i
+                      className='bi bi-patch-check'
+                      style={{ fontSize: '1.5rem', color: 'white' }}
+                    ></i>
+                  </div>
+                  <h5 className='card-ticket-count'>
+                    {ticketsResolved} Tickets
+                  </h5>
+                </div>
+                <div className='card-title text-center'>Tickets Resolved</div>
               </div>
             </div>
           </div>
 
           <div className='col-md-3 mb-3'>
-            <div className='card text-bg-danger h-55'>
-              <div className='card-header fw-bold text-center'>
-                Tickets Pending
+            <div className='card text-bg-light'>
+              <div className='card-body d-flex flex-column'>
+                <div className='card-ticket-data d-flex flex-row'>
+                  <div className='card-icon in-progress'>
+                    <i
+                      className='bi bi-ui-checks'
+                      style={{ fontSize: '1.5rem', color: 'white' }}
+                    ></i>
+                  </div>
+                  <h5 className='card-ticket-count'>
+                    {ticketsInProgress} Tickets
+                  </h5>
+                </div>
+                <div className='card-title text-center'>
+                  Tickets In Progress
+                </div>
               </div>
-              <div className='card-body'>
-                <h5 className='card-title text-center'>{ticketsPending}</h5>
+            </div>
+          </div>
+
+          <div className='col-md-3 mb-3'>
+            <div className='card text-bg-light'>
+              <div className='card-body d-flex flex-column'>
+                <div className='card-ticket-data d-flex flex-row'>
+                  <div className='card-icon pending'>
+                    <i
+                      className='bi bi-ui-checks-grid'
+                      style={{ fontSize: '1.5rem', color: 'white' }}
+                    ></i>
+                  </div>
+                  <h5 className='card-ticket-count'>
+                    {ticketsPending} Tickets
+                  </h5>
+                </div>
+                <div className='card-title text-center'>Pending Tickets</div>
               </div>
             </div>
           </div>
@@ -136,7 +171,7 @@ const UserView = () => {
           </div>
 
           <div className='input-group'>
-            <select className='form-select form-select'>
+            <select className='form-select form-select-sm'>
               <option>Filter by status...</option>
               <option value='Assigned'>Assigned</option>
               <option value='Closed'>Closed</option>
@@ -147,14 +182,14 @@ const UserView = () => {
             </button>
           </div>
 
-          <button type='button' className='btn btn-success'>
+          <button type='button' className='btn btn-success btn-sm'>
             New Ticket
           </button>
         </div>{' '}
         {/* end userActions */}
         <div className='table-responsive mt-3'>
           {tickets.length > 0 ? (
-            <table className='table table-striped table-hover table-sm'>
+            <table className='table table-striped table-bordered table-hover table-sm'>
               <thead>
                 <tr>
                   <th scope='col'>Ticket #</th>
@@ -164,7 +199,9 @@ const UserView = () => {
                   <th scope='col'>Status</th>
                   <th scope='col'>Assigned To</th>
                   <th scope='col'>Created On</th>
-                  <th scope='col'>VIEW</th>
+                  <th scope='col' className='text-center'>
+                    View
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -208,12 +245,11 @@ const UserView = () => {
                     </td>
                     <td>{ticket.dateCreated}</td>
                     <td className='text-center'>
-                      <Link
-                        className='btn btn-outline-secondary btn-sm'
-                        to={`/view-ticket/${ticket.id}`}
-                        state={{ ticket }}
-                      >
-                        ...
+                      <Link to={`/view-ticket/${ticket.id}`} state={{ ticket }}>
+                        <i
+                          className='bi bi-three-dots'
+                          style={{ fontSize: '1.2rem' }}
+                        ></i>
                       </Link>
                     </td>
                   </tr>
@@ -221,13 +257,13 @@ const UserView = () => {
               </tbody>
             </table>
           ) : (
-            <div className='alert alert-info text-center fs-4' role='alert'>
+            <div className='alert alert-info text-center fs-6' role='alert'>
               You have no tickets yet.
             </div>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
