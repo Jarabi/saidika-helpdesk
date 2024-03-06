@@ -28,6 +28,21 @@ const Navbar = () => {
         <div className='nav-items'>
           <ul className='navbar-nav d-flex flex-row justify-content-end'>
             <li className='nav-item me-4'>
+              <a className='nav-link' href='/#hero'>
+                Home
+              </a>
+            </li>
+            <li className='nav-item me-4'>
+              <a className='nav-link' href='/#services'>
+                Services
+              </a>
+            </li>
+            <li className='nav-item me-4'>
+              <a className='nav-link' href='/#about'>
+                About
+              </a>
+            </li>
+            <li className='nav-item me-4'>
               {auth.id ? (
                 <div className='btn' onClick={logoutHandler}>
                   Logout
