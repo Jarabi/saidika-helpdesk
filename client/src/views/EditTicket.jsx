@@ -1,18 +1,17 @@
-import { useEffect, useState, useContext } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { v4 as uuidv4 } from 'uuid';
 import 'react-toastify/dist/ReactToastify.css';
-import AuthContext from '../context/AuthProvider';
 import axios from '../api/client';
 
-const NewTicket = () => {
-  const { auth } = useContext(AuthContext);
-  const [title, setTitle] = useState('');
-  const [priority, setPriority] = useState('');
-  const [description, setDescription] = useState('');
+const EditTicket = ({ ticketObj }) => {
+  const { id, title, description, priority } = ticketObj;
+
+  const [editPriority, setEditPriority] = useState(priority);
+  const [editDescription, setEditDescription] = useState(description);
   const [formErrors, setFormErrors] = useState({});
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = 'New Ticket | Saidika Helpdesk';
@@ -23,42 +22,28 @@ const NewTicket = () => {
 
     let validationErrors = {};
 
-    if (title === '' || title === null) {
-      validationErrors.title = 'Title is required';
+    if (editPriority === '' || editPriority === 'Set Priority') {
+      validationErrors.editPriority = 'Set Priority';
     }
 
-    if (priority === '' || priority === 'Set Priority') {
-      validationErrors.priority = 'Set Priority';
-    }
-
-    if (description === '' || description === null) {
-      validationErrors.description = 'Provide ticket description';
+    if (editDescription === '' || editDescription === null) {
+      validationErrors.editDescription = 'Provide ticket description';
     }
 
     setFormErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const tickets = await axios.get('/tickets');
-        const newTicket = {
-          id: uuidv4(),
-          ticketNumber: `T-${(tickets.data.length + 1)
-            .toString()
-            .padStart(4, '0')}`,
-          title,
-          priority,
-          description,
-          dateCreated: new Date().toLocaleString(),
-          status: 'Open',
-          userId: auth.id,
+        const editTicket = {
+          priority: editPriority,
+          description: editDescription,
         };
-        await axios.post('/tickets', newTicket);
-        toast.success('Ticket created successfully', {
+        await axios.patch(`/tickets/${id}`, editTicket);
+        toast.success('Ticket edit successfully', {
           position: 'top-center',
+          autoClose: 500,
+          onClose: () => navigate('/dashboard'),
         });
-        setTitle('');
-        setPriority('');
-        setDescription('');
       } catch (error) {
         console.error('Error creating ticket:', error);
         toast.error('Error creating ticket', {
@@ -75,44 +60,40 @@ const NewTicket = () => {
           <div className='py-5 px-5'>
             <form onSubmit={handleSubmit} className='row g-4'>
               <h3 className='text-center' style={{ color: '#ff5722' }}>
-                New Ticket
+                Edit Ticket
               </h3>
               <hr className='mb-5' style={{ color: '#ff5722' }} />
               <div className='row mb-5'>
-                <div
-                  className={`col-md-6 ${formErrors.title && 'text-danger'}`}
-                >
+                <div className='col-md-6'>
                   <label className='text-uppercase mb-2'>Title</label>
                   <input
                     type='text'
                     name='title'
                     className='form-control'
-                    onChange={(e) => setTitle(e.target.value)}
                     value={title}
-                    autoFocus
+                    disabled
                   />
-                  {formErrors.title && (
-                    <span className='invalidMessage'>{formErrors.title}</span>
-                  )}
                 </div>
                 <div
-                  className={`col-md-6 ${formErrors.priority && 'text-danger'}`}
+                  className={`col-md-6 ${
+                    formErrors.editPriority && 'text-danger'
+                  }`}
                 >
                   <label className='text-uppercase mb-2'>priority</label>
                   <select
-                    name='priority'
+                    name='editPriority'
                     className='form-select'
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
+                    value={editPriority}
+                    onChange={(e) => setEditPriority(e.target.value)}
                   >
                     <option>Set Priority</option>
                     <option value='Low'>Low</option>
-                    <option value='medium'>Medium</option>
+                    <option value='Medium'>Medium</option>
                     <option value='High'>High</option>
                   </select>
-                  {formErrors.priority && (
+                  {formErrors.editPriority && (
                     <span className='invalidMessage'>
-                      {formErrors.priority}
+                      {formErrors.editPriority}
                     </span>
                   )}
                 </div>
@@ -120,20 +101,20 @@ const NewTicket = () => {
               <div className='row mb-4'>
                 <div
                   className={`col-md-12 ${
-                    formErrors.description && 'text-danger'
+                    formErrors.editDescription && 'text-danger'
                   }`}
                 >
                   <label className='text-uppercase mb-2'>Description</label>
                   <textarea
-                    name='description'
+                    name='editDescription'
                     className='form-control'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={editDescription}
+                    onChange={(e) => setEditDescription(e.target.value)}
                     rows={3}
                   ></textarea>
-                  {formErrors.description && (
+                  {formErrors.editDescription && (
                     <span className='invalidMessage'>
-                      {formErrors.description}
+                      {formErrors.editDescription}
                     </span>
                   )}
                 </div>
@@ -149,4 +130,8 @@ const NewTicket = () => {
   );
 };
 
-export default NewTicket;
+EditTicket.propTypes = {
+  ticketObj: PropTypes.object.isRequired,
+};
+
+export default EditTicket;

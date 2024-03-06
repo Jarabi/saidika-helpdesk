@@ -1,24 +1,38 @@
 import { useState, useContext } from 'react';
 import AuthContext from '../context/AuthProvider';
 import NewTicket from '../pages/NewTicket';
-import TicketsOverview from '../pages/TicketsOverview';
+import ViewTicket from '../views/ViewTicket';
+import EditTicket from './EditTicket';
+import TicketsOverview from './TicketsOverview';
 
 const UserView = () => {
   const { auth } = useContext(AuthContext);
-  const [dashboardData, setDashboardData] = useState('overview');
+  const [ticketObj, setTicketObj] = useState({}); // state to hold ticket for view and edit
+  const [dashboardView, setDashboardView] = useState('overview');
 
   // handle which page to display in dashboard
   const handlePageSelection = (page) => {
-    setDashboardData(page);
+    setDashboardView(page);
   };
 
   // function to render content based on selected page
   const renderPage = () => {
-    switch (dashboardData) {
+    switch (dashboardView) {
       case 'overview':
-        return <TicketsOverview />;
+        return (
+          <TicketsOverview
+            setTicketObj={setTicketObj}
+            onViewTicket={setDashboardView}
+          />
+        );
       case 'new-ticket':
-        return <NewTicket />;
+        return <NewTicket setTicketObj={setTicketObj} />;
+      case 'view-ticket':
+        return (
+          <ViewTicket ticketObj={ticketObj} onEditTicket={setDashboardView} />
+        );
+      case 'edit-ticket':
+        return <EditTicket ticketObj={ticketObj} />;
       default:
         return <TicketsOverview />;
     }

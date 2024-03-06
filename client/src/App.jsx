@@ -11,7 +11,6 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
-import ViewTicket from './pages/ViewTicket';
 
 import './App.css';
 
@@ -31,7 +30,6 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/view-ticket/:id' element={<ViewTicket />} />
         </Route>
       </Routes>
       <Footer />

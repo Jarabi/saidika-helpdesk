@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthProvider';
 import api from '../api/client';
 
-const TicketsOverview = () => {
+const TicketsOverview = ({ onViewTicket, setTicketObj }) => {
   const { auth } = useContext(AuthContext);
   const [tickets, setTickets] = useState([]);
   const [users, setUsers] = useState([]);
@@ -18,6 +19,11 @@ const TicketsOverview = () => {
   let ticketsPending = tickets.filter(
     (ticket) => ticket.status === 'Open'
   ).length;
+
+  const handleTicketEdit = (ticketObj) => () => {
+    setTicketObj(ticketObj);
+    onViewTicket('view-ticket');
+  };
 
   // Retrieve tickets from the API
   const fetchTickets = async () => {
@@ -223,12 +229,17 @@ const TicketsOverview = () => {
                   </td>
                   <td>{ticket.dateCreated}</td>
                   <td className='text-center'>
-                    <Link to={`/view-ticket/${ticket.id}`} state={{ ticket }}>
+                    {/* <Link to={`/view-ticket/${ticket.id}`} state={{ ticket }}> */}
+                    <div
+                      className='view-ticket'
+                      onClick={handleTicketEdit(ticket)}
+                    >
                       <i
                         className='bi bi-three-dots'
                         style={{ fontSize: '1.2rem' }}
                       ></i>
-                    </Link>
+                    </div>
+                    {/* </Link> */}
                   </td>
                 </tr>
               ))}
@@ -243,6 +254,11 @@ const TicketsOverview = () => {
       {/* end tickets */}
     </>
   );
+};
+
+TicketsOverview.propTypes = {
+  onViewTicket: PropTypes.func.isRequired,
+  setTicketObj: PropTypes.func.isRequired,
 };
 
 export default TicketsOverview;
