@@ -22,7 +22,8 @@ const TicketsOverview = () => {
   // Retrieve tickets from the API
   const fetchTickets = async () => {
     try {
-      const response = await api.get(`/tickets/?userId=${auth.id}`);
+      const query = auth.role === '200' ? '' : `?userId=${auth.id}`;
+      const response = await api.get(`/tickets/${query}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching tickets', error);
