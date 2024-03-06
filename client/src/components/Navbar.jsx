@@ -53,13 +53,6 @@ const Navbar = () => {
                 </Link>
               )}
             </li>
-            {auth?.role === '200' && (
-              <li className='nav-item me-4'>
-                <Link className='nav-link' to='/register'>
-                  Register
-                </Link>
-              </li>
-            )}
 
             {auth.id && (
               <li className='nav-item dropdown'>
