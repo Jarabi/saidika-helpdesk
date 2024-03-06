@@ -179,7 +179,7 @@ const Login = () => {
                         </div> */}
 
                         <div className='col-12'>
-                          <button className='btn btn-primary px-4'>
+                          <button className='btn btn-success btn-lg px-4'>
                             Login
                           </button>
                         </div>
