@@ -110,7 +110,9 @@ const Login = () => {
                             formErrors.email && 'text-danger'
                           }`}
                         >
-                          <label>Email Address</label>
+                          <label className='text-uppercase mb-2'>
+                            Email Address
+                          </label>
                           <div className='input-group mb-3'>
                             <span className='input-group-text'>@</span>
                             <input
@@ -134,7 +136,9 @@ const Login = () => {
                             formErrors.password && 'text-danger'
                           }`}
                         >
-                          <label>Password</label>
+                          <label className='text-uppercase mb-2'>
+                            Password
+                          </label>
                           <div className='input-group mb-3'>
                             <span className='input-group-text'>...</span>
                             <input
