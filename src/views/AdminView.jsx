@@ -60,13 +60,13 @@ const AdminView = () => {
             <i className='bi bi-plus-square-dotted me-3'></i>
             New Ticket
           </li>
-          <li
+          {/* <li
             className='nav-item'
             onClick={() => handlePageSelection('overview')}
           >
             <i className='bi bi-people me-3'></i>
             View Users
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className='pageContent ms-2'>
