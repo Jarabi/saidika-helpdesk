@@ -109,7 +109,7 @@ const ViewTicket = ({ ticketObj, onEditTicket }) => {
       </div>
 
       <div className='cta'>
-        {auth.id ? (
+        {auth.role === '200' ? (
           <button
             className='btn btn-success btn-lg'
             onClick={() => onEditTicket('review-ticket')}
