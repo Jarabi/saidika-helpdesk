@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthProvider';
 import api from '../api/client';
 
@@ -175,7 +174,7 @@ const TicketsOverview = ({ onViewTicket, setTicketObj }) => {
       {/* Tickets */}
       <div className='table-responsive mt-3'>
         {tickets?.length > 0 ? (
-          <table className='table table-striped table-bordered table-hover table-sm'>
+          <table className='table table-hover table-sm'>
             <thead>
               <tr>
                 <th scope='col'>Ticket #</th>
@@ -229,7 +228,6 @@ const TicketsOverview = ({ onViewTicket, setTicketObj }) => {
                   </td>
                   <td>{ticket.dateCreated}</td>
                   <td className='text-center'>
-                    {/* <Link to={`/view-ticket/${ticket.id}`} state={{ ticket }}> */}
                     <div
                       className='view-ticket'
                       onClick={handleTicketEdit(ticket)}
@@ -239,7 +237,6 @@ const TicketsOverview = ({ onViewTicket, setTicketObj }) => {
                         style={{ fontSize: '1.2rem' }}
                       ></i>
                     </div>
-                    {/* </Link> */}
                   </td>
                 </tr>
               ))}

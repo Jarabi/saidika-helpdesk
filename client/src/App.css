@@ -524,21 +524,30 @@ nav {
 }
 
 .viewTicket table th {
-  font-weight: 500;
-  color: var(--dark);
-  background-color: var(--light-grey);
-  padding: 10px;
+  width: 20%
 }
 
 .viewTicket table tr {
   font-weight: 500;
-  padding: 10px;
 }
 
 .viewTicket .ticket-number {
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--orange);
+}
+
+.view-ticket {
+  cursor: pointer;
+}
+
+.ticketDetails .row div {
+  margin-top: 20px;
+  padding: 5px;
+  /* width: 20rem; */
+  /* margin: 2px; */
+  /* border: 1px solid var(--gray); */
+  border-radius: 3px;
 }
 
 /**
@@ -616,8 +625,11 @@ nav {
 }
 
 .viewTitle {
-  margin: 20px 0;
-  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  margin: 10px 0;
   border-bottom: 1px solid var(--orange);
 }
 
